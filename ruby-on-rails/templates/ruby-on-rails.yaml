@@ -54,10 +54,10 @@ spec:
               value: postgresql://postgres:yourpassword@postgres:5432/postgres?encoding=utf8&pool=20&timeout=5000
           resources:
             requests:
+              memory: 128Mi
+              cpu: 250m
+            limits:
               memory: 256Mi
               cpu: 500m
-            limits:
-              memory: 512Mi
-              cpu: 1000m
           ports:
             - containerPort: 3000
