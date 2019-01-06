@@ -2,9 +2,17 @@
 
 Kubernetes templates for deploying infrastructure as code.
 
-## Rails on ECS
+## Ruby on Rails
 
-This project uses GKE for Kubernetes deployment of a Ruby on Rails application. To deploy, simply run `kubectl apply -f ruby-on-rails.yaml`
+This project uses GKE for Kubernetes deployment of a Ruby on Rails application. To deploy, run the following commands in sequence:
+
+1. `kubectl apply -f templates/postgres.yaml`
+
+2. `kubectl apply -f jobs/db-migrate.yaml`
+
+3. `scripts/create-secrete <RAILS_MASTER_KEY>`
+
+4. `kubectl apply -f templates/ruby-on-rails.yaml`
 
 For local development, make sure `docker` and `docker-compose` are installed. Then, simply run `docker-compose up` within the directory. Rails should be up at `localhost`.
 
