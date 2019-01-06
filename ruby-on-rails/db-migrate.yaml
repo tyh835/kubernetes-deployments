@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migrate
+spec:
+  template:
+    metadata:
+      name: db-migrate
+    spec:
+      containers:
+        - name: db-migrate
+          image: tyh835/ruby-on-rails
+          commands:
+            - bin/rails db:migrate
+          env:
+            - name: RAILS_MAX_THREADS
+              value: "5"
+            - name: RAILS_ENV
+              value: production
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rails-master-key
+                  key: value
+            - name: RAILS_LOG_TO_STDOUT
+              value: "true"
+            - name: RAILS_SERVE_STATIC_FILES
+              value: "true"
+            - name: DATABASE_URL
+              value: postgresql://postgres:yourpassword@postgres:5432/postgres?encoding=utf8&pool=20&timeout=5000
+restartPolicy: Never

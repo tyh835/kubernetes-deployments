@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: application
+spec:
+  type: LoadBalancer
+  selector:
+    app: ruby-on-rails
+  ports:
+    - name: web
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ruby-on-rails
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ruby-on-rails
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: ruby-on-rails
+    spec:
+      containers:
+        - name: ruby-on-rails
+          image: tyh835/ruby-on-rails
+          imagePullPolicy: Always
+          env:
+            - name: RAILS_MAX_THREADS
+              value: "5"
+            - name: RAILS_ENV
+              value: production
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rails-master-key
+                  key: value
+            - name: RAILS_LOG_TO_STDOUT
+              value: "true"
+            - name: RAILS_SERVE_STATIC_FILES
+              value: "true"
+            - name: DATABASE_URL
+              value: postgresql://postgres:yourpassword@postgres:5432/postgres?encoding=utf8&pool=20&timeout=5000
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 500m
+            limits:
+              memory: 512Mi
+              cpu: 1000m
+          ports:
+            - containerPort: 3000
