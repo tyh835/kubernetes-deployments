@@ -10,8 +10,10 @@ spec:
       containers:
         - name: db-migrate
           image: tyh835/ruby-on-rails
-          commands:
-            - bin/rails db:migrate
+          imagePullPolicy: Always
+          command:
+            - bin/rails
+            - db:migrate
           env:
             - name: RAILS_ENV
               value: production
@@ -22,4 +24,4 @@ spec:
                   key: value
             - name: DATABASE_URL
               value: postgresql://postgres:yourpassword@postgres:5432/postgres?encoding=utf8&pool=20&timeout=5000
-restartPolicy: Never
+      restartPolicy: OnFailure
