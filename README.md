@@ -10,7 +10,7 @@ This project uses GKE for Kubernetes deployment of a Ruby on Rails application. 
 
 2. `kubectl apply -f jobs/db-migrate.yaml`
 
-3. `scripts/create-secrete <RAILS_MASTER_KEY>`
+3. `scripts/create-secret.sh <RAILS_MASTER_KEY>`
 
 4. `kubectl apply -f templates/ruby-on-rails.yaml`
 
