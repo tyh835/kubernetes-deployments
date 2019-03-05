@@ -1,10 +1,10 @@
 # About
 
-Kubernetes templates for deploying infrastructure as code.
+Kubernetes templates for deploying various applications.
 
 ## Ruby on Rails
 
-This project uses GKE for Kubernetes deployment of a Ruby on Rails application. To deploy, run the following commands in sequence:
+This project uses GKE to deploy a Rails application. To deploy, run the following commands in sequence:
 
 1. `kubectl apply -f templates/postgres.yaml`
 
