@@ -18,7 +18,7 @@ For local development, make sure `docker` and `docker-compose` are installed. Th
 
 Developers should create their own `master.key` and `credentials.yml.enc` for their Rails app, as the repository secret key is only for demonstration purposes. You can set `RAILS_MASTER_KEY` environment variable (value from `master.key`) in `docker-compose.yaml` file to develop locally, and run `docker-compose build` to build your application Docker image for pushing to a repository.
 
-Make sure to not commit your `master.key` file or upload a `docker-compose.yaml` file containing the key. Instead, enter it to the `RailsMasterKey` parameter to CloudFormation at deploy time.
+Make sure to not commit your `master.key` file or upload a `docker-compose.yaml` file containing the key. Instead, enter it to cluster configuration at deploy time.
 
 ## Obtaining GKE credentials
 
